@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoang Duy Phong Tran — Interior Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F4EF;
+    --warm-white: #FDFCFA;
+    --ink: #1A1814;
+    --ink-soft: #3D3A34;
+    --ink-muted: #7A7670;
+    --ink-faint: #B5B2AB;
+    --accent: #8B6F47;
+    --accent-light: #C4A882;
+    --accent-bg: #F0EAE0;
+    --border: rgba(26,24,20,0.10);
+    --border-med: rgba(26,24,20,0.18);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+    --radius: 4px;
+    --radius-lg: 10px;
+    --transition: 0.25s ease;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--warm-white); color: var(--ink); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; background: rgba(253,252,250,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--serif); font-size: 18px; font-weight: 400; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.04em; transition: color var(--transition); }
+  .nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--accent); }
+
+  .page { display: none; padding-top: 64px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* HOME HERO */
+  .hero { display: grid; grid-template-columns: 1fr 400px; min-height: calc(100vh - 64px); }
+  .hero-left { padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; font-weight: 500; }
+  .hero-name { font-family: var(--serif); font-size: clamp(44px, 6vw, 76px); font-weight: 300; line-height: 1.08; margin-bottom: 32px; }
+  .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-bio { font-size: 15px; color: var(--ink-soft); line-height: 1.8; max-width: 520px; margin-bottom: 36px; font-weight: 300; }
+  .hero-contacts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+  .contact-pill { font-size: 12px; padding: 6px 14px; border: 1px solid var(--border-med); border-radius: 20px; color: var(--ink-soft); text-decoration: none; transition: all var(--transition); }
+  .contact-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-cta { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--warm-white); background: var(--ink); padding: 13px 26px; border-radius: var(--radius); text-decoration: none; transition: background var(--transition); align-self: flex-start; }
+  .hero-cta:hover { background: var(--accent); }
+
+  .hero-right { display: grid; grid-template-rows: 1fr 160px; overflow: hidden; }
+  .hero-right img.main { width: 100%; height: 100%; object-fit: cover; display: block; border-left: 1px solid var(--border); }
+  .hero-thumbs { display: grid; grid-template-columns: 1fr 1fr; border-left: 1px solid var(--border); border-top: 1px solid var(--border); }
+  .hero-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-thumbs img:first-child { border-right: 1px solid var(--border); }
+
+  /* SECTIONS */
+  .section { padding: 88px 64px; }
+  .section-alt { background: var(--cream); }
+  .section-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 48px; }
+  .section-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 500; white-space: nowrap; }
+  .section-title { font-family: var(--serif); font-size: 34px; font-weight: 300; }
+  .section-rule { flex: 1; height: 1px; background: var(--border); margin-bottom: 4px; }
+
+  /* FEATURED */
+  .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; gap: 1px; background: var(--border); }
+  .feat-card { background: var(--warm-white); text-decoration: none; display: block; transition: background var(--transition); }
+  .feat-card:hover { background: var(--accent-bg); }
+  .feat-card img { width: 100%; height: 180px; object-fit: cover; display: block; border-bottom: 1px solid var(--border); }
+  .feat-body { padding: 20px 22px 22px; }
+  .feat-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-weight: 500; }
+  .feat-name { font-family: var(--serif); font-size: 19px; font-weight: 400; margin-bottom: 5px; }
+  .feat-sub { font-size: 12px; color: var(--ink-muted); margin-bottom: 14px; }
+  .feat-arrow { font-size: 14px; color: var(--accent-light); transition: transform var(--transition); display: inline-block; }
+  .feat-card:hover .feat-arrow { transform: translateX(4px); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .skill-card { padding: 18px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--warm-white); transition: border-color var(--transition); }
+  .skill-card:hover { border-color: var(--accent-light); }
+  .skill-cat { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; font-weight: 500; }
+  .skill-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+  .skill-items { font-size: 11px; color: var(--ink-muted); }
+
+  /* PHILOSOPHY */
+  .philosophy { padding: 72px 64px; text-align: center; border-top: 1px solid var(--border); }
+  .philosophy-quote { font-family: var(--serif); font-size: clamp(22px, 3vw, 38px); font-weight: 300; font-style: italic; line-height: 1.4; max-width: 780px; margin: 0 auto 16px; }
+  .philosophy-attr { font-size: 11px; color: var(--ink-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ABOUT */
+  .about-wrap { padding: 80px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; border-bottom: 1px solid var(--border); }
+  .about-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; font-weight: 500; }
+  .about-name { font-family: var(--serif); font-size: 44px; font-weight: 300; line-height: 1.1; margin-bottom: 6px; }
+  .about-role { font-size: 13px; color: var(--ink-muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 24px; }
+  .about-bio { font-size: 14px; color: var(--ink-soft); line-height: 1.85; font-weight: 300; margin-bottom: 18px; }
+  .social-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .social-btn { font-size: 12px; padding: 7px 16px; border: 1px solid var(--border-med); border-radius: 20px; color: var(--ink-soft); text-decoration: none; transition: all var(--transition); }
+  .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .photo-collage { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 240px 150px; gap: 6px; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 28px; }
+  .photo-collage img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-collage img:first-child { grid-column: 1 / -1; }
+
+  .tl-group { margin-bottom: 28px; }
+  .tl-group-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .tl-item { display: flex; gap: 12px; margin-bottom: 14px; }
+  .tl-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-light); flex-shrink: 0; margin-top: 5px; }
+  .tl-dot.now { background: var(--accent); }
+  .tl-title { font-size: 13px; font-weight: 500; }
+  .tl-org { font-size: 12px; color: var(--ink-soft); }
+  .tl-date { font-size: 11px; color: var(--ink-faint); margin-top: 1px; }
+  .client-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .client-chip { font-size: 11px; padding: 4px 11px; border: 1px solid var(--border); border-radius: 20px; color: var(--ink-soft); }
+
+  /* AWARDS */
+  .awards-section { padding: 56px 64px; background: var(--cream); }
+  .awards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .award-card { padding: 22px; background: var(--warm-white); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .award-icon { font-size: 20px; margin-bottom: 8px; }
+  .award-name { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .award-org { font-size: 11px; color: var(--ink-muted); }
+
+  /* PROJECTS */
+  .proj-hero { padding: 64px 64px 44px; background: var(--cream); border-bottom: 1px solid var(--border); }
+  .proj-hero-title { font-family: var(--serif); font-size: 52px; font-weight: 300; line-height: 1.1; margin-bottom: 10px; }
+  .proj-hero-sub { font-size: 14px; color: var(--ink-muted); font-weight: 300; }
+
+  .filter-bar { display: flex; gap: 7px; padding: 16px 64px; border-bottom: 1px solid var(--border); flex-wrap: wrap; background: var(--warm-white); position: sticky; top: 64px; z-index: 10; }
+  .filter-btn { font-size: 12px; padding: 5px 15px; border: 1px solid var(--border); border-radius: 20px; color: var(--ink-muted); cursor: pointer; background: none; font-family: var(--sans); transition: all var(--transition); }
+  .filter-btn:hover { color: var(--ink); border-color: var(--ink-muted); }
+  .filter-btn.active { background: var(--ink); color: var(--warm-white); border-color: var(--ink); }
+
+  .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+  .proj-card { background: var(--warm-white); transition: background var(--transition); }
+  .proj-card:hover { background: var(--accent-bg); }
+
+  .gallery { position: relative; height: 230px; overflow: hidden; }
+  .gallery img.main-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s ease; }
+  .proj-card:hover .gallery img.main-img { transform: scale(1.04); }
+  .gallery-count { position: absolute; bottom: 10px; right: 12px; background: rgba(26,24,20,0.5); color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 10px; backdrop-filter: blur(4px); }
+
+  .thumbs { display: flex; gap: 4px; padding: 5px 24px 0; }
+  .thumb { width: 44px; height: 33px; object-fit: cover; border-radius: 3px; cursor: pointer; opacity: 0.55; transition: opacity var(--transition); border: 1.5px solid transparent; flex-shrink: 0; }
+  .thumb:hover, .thumb.on { opacity: 1; border-color: var(--accent); }
+
+  .proj-info { padding: 16px 24px 24px; }
+  .badges { display: flex; gap: 7px; margin-bottom: 10px; flex-wrap: wrap; }
+  .badge { font-size: 10px; padding: 2px 9px; border-radius: 20px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+  .b-pro { background: #EDE8E0; color: #6B5535; }
+  .b-acad { background: #E0EDE8; color: #2D6B55; }
+  .b-award { background: #F0EAE0; color: #8B6F47; }
+  .proj-title { font-family: var(--serif); font-size: 22px; font-weight: 400; margin-bottom: 3px; line-height: 1.2; }
+  .proj-client { font-size: 12px; color: var(--ink-muted); margin-bottom: 10px; }
+  .proj-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 12px; font-weight: 300; }
+  .tools { display: flex; gap: 5px; flex-wrap: wrap; }
+  .tool { font-size: 11px; padding: 2px 7px; border: 1px solid var(--border); border-radius: 3px; color: var(--ink-faint); }
+
+  footer { padding: 40px 64px; background: var(--ink); display: flex; align-items: center; justify-content: space-between; }
+  .f-name { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--warm-white); }
+  .f-contact { font-size: 12px; color: rgba(253,252,250,0.45); }
+  .f-year { font-size: 11px; color: rgba(253,252,250,0.25); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .fu { animation: fadeUp .55s ease forwards; }
+  .fu2 { animation: fadeUp .55s .12s ease forwards; opacity:0; }
+  .fu3 { animation: fadeUp .55s .24s ease forwards; opacity:0; }
+  .fu4 { animation: fadeUp .55s .36s ease forwards; opacity:0; }
+
+  @media (max-width: 860px) {
+    nav { padding: 0 20px; }
+    .hero, .about-wrap { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 48px 22px; }
+    .section, .awards-section { padding: 52px 22px; }
+    .featured-grid, .proj-grid { grid-template-columns: 1fr; }
+    .skills-grid, .awards-grid { grid-template-columns: 1fr 1fr; }
+    .proj-hero, .filter-bar { padding-left: 22px; padding-right: 22px; }
+    footer { padding: 30px 22px; flex-direction: column; gap: 10px; text-align: center; }
+    .philosophy { padding: 52px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#" onclick="go('home');return false;">Hoang Duy Phong Tran</a>
+  <div class="nav-links">
+    <a href="#" id="nav-home" class="active" onclick="go('home');return false;">Home</a>
+    <a href="#" id="nav-about" onclick="go('about');return false;">About</a>
+    <a href="#" id="nav-projects" onclick="go('projects');return false;">Projects</a>
+  </div>
+</nav>
+
+<!-- ════════ HOME ════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow fu">Interior Designer · Project Manager</div>
+      <h1 class="hero-name fu2">Hoang Duy<br><em>Phong Tran</em></h1>
+      <p class="hero-bio fu3">DMACC Interior Design student graduating Fall 2026, with over a decade of real-world project experience across Vietnam, Australia, and East Asia. Blending Eastern refinement with Western functionality to create spaces that are authentic, purposeful, and lasting.</p>
+      <div class="hero-contacts fu4">
+        <a class="contact-pill" href="tel:5158649653">📞 (515) 864-9653</a>
+        <a class="contact-pill" href="mailto:tduyphong@gmail.com">✉ tduyphong@gmail.com</a>
+        <a class="contact-pill" href="https://www.linkedin.com/in/hoang-duy-phong-tran" target="_blank">LinkedIn</a>
+        <a class="contact-pill" href="https://www.behance.net/phongtran86" target="_blank">Behance</a>
+        <span class="contact-pill">📍 Des Moines, IA</span>
+      </div>
+      <a class="hero-cta fu4" href="#" onclick="go('projects');return false;">View Portfolio →</a>
+    </div>
+    <div class="hero-right">
+      <img class="main" src="https://hoangduyphongtran.github.io/images/hero-1.jpg" alt="Project render" loading="lazy">
+      <div class="hero-thumbs">
+        <img src="https://hoangduyphongtran.github.io/images/hyatt-1.jpg" alt="Park Hyatt" loading="lazy">
+        <img src="https://hoangduyphongtran.github.io/images/surf-1.jpg" alt="Surfing Lizard" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><span class="section-label">Selected Work</span><h2 class="section-title">Featured Projects</h2><div class="section-rule"></div></div>
+    <div class="featured-grid">
+      <a class="feat-card" href="#" onclick="go('projects');return false;">
+        <img src="https://hoangduyphongtran.github.io/images/hyatt-1.jpg" alt="Park Hyatt Spa" loading="lazy">
+        <div class="feat-body"><div class="feat-tag">Professional · Hotel & Spa</div><div class="feat-name">Park Hyatt Spa</div><div class="feat-sub">Hanoi, Vietnam · Project Manager</div><span class="feat-arrow">→</span></div>
+      </a>
+      <a class="feat-card" href="#" onclick="go('projects');return false;">
+        <img src="https://hoangduyphongtran.github.io/images/surf-1.jpg" alt="Surfing Lizard" loading="lazy">
+        <div class="feat-body"><div class="feat-tag">Professional · Restaurant · 🏆 Award</div><div class="feat-name">Surfing Lizard</div><div class="feat-sub">Perth, Australia · Best Design Hospitality 2024</div><span class="feat-arrow">→</span></div>
+      </a>
+      <a class="feat-card" href="#" onclick="go('projects');return false;">
+        <img src="https://hoangduyphongtran.github.io/images/hotel-2.jpg" alt="College Resort Hotel" loading="lazy">
+        <div class="feat-body"><div class="feat-tag">Academic · Hotel · DMACC</div><div class="feat-name">College Resort Hotel</div><div class="feat-sub">INT 223 Commercial II</div><span class="feat-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section section-alt">
+    <div class="section-header"><span class="section-label">Expertise</span><h2 class="section-title">Software & Tools</h2><div class="section-rule"></div></div>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-cat">BIM / CAD</div><div class="skill-name">Autodesk Revit</div><div class="skill-items">AutoCAD</div></div>
+      <div class="skill-card"><div class="skill-cat">3D Modeling</div><div class="skill-name">SketchUp</div><div class="skill-items">DL-Light extension</div></div>
+      <div class="skill-card"><div class="skill-cat">Rendering</div><div class="skill-name">Enscape · D5 Render</div><div class="skill-items">Lumion</div></div>
+      <div class="skill-card"><div class="skill-cat">Graphics</div><div class="skill-name">Adobe Suite</div><div class="skill-items">CorelDraw · Photoshop</div></div>
+      <div class="skill-card"><div class="skill-cat">Project Mgmt</div><div class="skill-name">Microsoft Project</div><div class="skill-items">Google One · Canvas</div></div>
+      <div class="skill-card"><div class="skill-cat">AI Tools</div><div class="skill-name">Custom-Built</div><div class="skill-items">Concept generator · Revenue calc</div></div>
+      <div class="skill-card"><div class="skill-cat">Languages</div><div class="skill-name">Vietnamese</div><div class="skill-items">English (Professional)</div></div>
+      <div class="skill-card"><div class="skill-cat">Hand Skills</div><div class="skill-name">Technical Drawing</div><div class="skill-items">Gesture · Still life · Perspective</div></div>
+    </div>
+  </div>
+
+  <div class="philosophy">
+    <p class="philosophy-quote">"Functionality and benefits are harmoniously aligned with the aesthetics of creativity."</p>
+    <p class="philosophy-attr">Design Philosophy — Hoang Duy Phong Tran</p>
+  </div>
+
+  <footer><div class="f-name">Hoang Duy Phong Tran</div><div class="f-contact">tduyphong@gmail.com · (515) 864-9653</div><div class="f-year">Portfolio 2026</div></footer>
+</div>
+
+<!-- ════════ ABOUT ════════ -->
+<div id="page-about" class="page">
+  <div class="about-wrap">
+    <div>
+      <div class="about-eyebrow">About Me</div>
+      <h1 class="about-name">Hoang Duy<br>Phong Tran</h1>
+      <div class="about-role">Interior Designer · Project Manager</div>
+      <p class="about-bio">With over a decade of international project experience spanning Vietnam, Australia, and East Asia, I bring a cross-cultural design sensibility to every space. My work balances Eastern refinement with Western functionality — creating interiors that are authentic, purposeful, and long-lasting.</p>
+      <p class="about-bio">Currently completing my AAS in Interior Design at Des Moines Area Community College (Class of 2026), proficient in Revit, SketchUp, Enscape, D5 Render, AutoCAD, and the Adobe Suite. I have also built custom AI web tools to accelerate design workflows.</p>
+      <p class="about-bio">My travels to Japan, Taiwan, Australia, Singapore, and China have deeply shaped my approach — blending cultural perspectives into spaces that feel both universal and deeply personal.</p>
+      <div class="social-links">
+        <a class="social-btn" href="https://www.linkedin.com/in/hoang-duy-phong-tran" target="_blank">LinkedIn</a>
+        <a class="social-btn" href="https://www.behance.net/phongtran86" target="_blank">Behance</a>
+        <a class="social-btn" href="mailto:tduyphong@gmail.com">Email Me</a>
+        <a class="social-btn" href="mailto:htran17@dmacc.edu">DMACC Email</a>
+      </div>
+    </div>
+    <div>
+      <div class="photo-collage">
+        <img src="https://hoangduyphongtran.github.io/images/about-1.jpg" alt="Profile" loading="lazy">
+        <img src="https://hoangduyphongtran.github.io/images/about-2.jpg" alt="Work" loading="lazy">
+        <img src="https://hoangduyphongtran.github.io/images/about-3.jpg" alt="Award" loading="lazy">
+      </div>
+      <div class="tl-group"><div class="tl-group-label">Education</div>
+        <div class="tl-item"><div class="tl-dot now"></div><div><div class="tl-title">AAS – Interior Design</div><div class="tl-org">Des Moines Area Community College</div><div class="tl-date">2024 – 2026 (Expected)</div></div></div>
+      </div>
+      <div class="tl-group"><div class="tl-group-label">Work Experience</div>
+        <div class="tl-item"><div class="tl-dot now"></div><div><div class="tl-title">Architect Project Manager</div><div class="tl-org">AIC JSC</div><div class="tl-date">2019 – 2023</div></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div><div class="tl-title">Design · Fitout · Supply</div><div class="tl-org">Archi Dynamic Design — Australian Cooperative</div><div class="tl-date">2010 – 2023</div></div></div>
+      </div>
+      <div class="tl-group"><div class="tl-group-label">Clients & Partners</div>
+        <div class="client-chips">
+          <span class="client-chip">Hyatt Hotels & Resorts</span><span class="client-chip">AEON Japan</span><span class="client-chip">GetFit Holdings</span><span class="client-chip">ADDESIGN AU</span><span class="client-chip">BCA Solutions</span><span class="client-chip">NAHY Fashion</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="awards-section">
+    <div class="section-header" style="margin-bottom:28px;"><span class="section-label">Recognition</span><h2 class="section-title">Awards & Honors</h2><div class="section-rule"></div></div>
+    <div class="awards-grid">
+      <div class="award-card"><div class="award-icon">🏅</div><div class="award-name">Phi Theta Kappa</div><div class="award-org">Honor Society Member · DMACC</div></div>
+      <div class="award-card"><div class="award-icon">🎓</div><div class="award-name">Dean's Award</div><div class="award-org">Des Moines Area Community College</div></div>
+      <div class="award-card"><div class="award-icon">🏆</div><div class="award-name">Best Design Hospitality</div><div class="award-org">Surfing Lizard · AU$500k · 2024</div></div>
+      <div class="award-card"><div class="award-icon">⭐</div><div class="award-name">HOTLIST Editor's Pick</div><div class="award-org">Travellive · MICE · 2025</div></div>
+    </div>
+  </div>
+  <footer><div class="f-name">Hoang Duy Phong Tran</div><div class="f-contact">tduyphong@gmail.com · (515) 864-9653</div><div class="f-year">Portfolio 2026</div></footer>
+</div>
+
+<!-- ════════ PROJECTS ════════ -->
+<div id="page-projects" class="page">
+  <div class="proj-hero"><h1 class="proj-hero-title">Project<br>Portfolio</h1><p class="proj-hero-sub">Professional commissions and academic work · 2010 – 2026</p></div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filter('all',this)">All</button>
+    <button class="filter-btn" onclick="filter('professional',this)">Professional</button>
+    <button class="filter-btn" onclick="filter('academic',this)">Academic</button>
+    <button class="filter-btn" onclick="filter('hotel',this)">Hotel & Hospitality</button>
+    <button class="filter-btn" onclick="filter('retail',this)">Retail & Commercial</button>
+    <button class="filter-btn" onclick="filter('residential',this)">Residential</button>
+  </div>
+
+  <div class="proj-grid">
+
+    <!-- PARK HYATT SPA -->
+    <div class="proj-card" data-tags="professional hotel">
+      <div class="gallery"><img class="main-img" id="m-hyatt" src="https://hoangduyphongtran.github.io/images/hyatt-1.jpg" alt="Park Hyatt"><div class="gallery-count">3 photos</div></div>
+      <div class="thumbs">
+        <img class="thumb on" src="https://hoangduyphongtran.github.io/images/hyatt-1.jpg" onclick="sw('m-hyatt',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/hyatt-2.jpg" onclick="sw('m-hyatt',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/hyatt-3.jpg" onclick="sw('m-hyatt',this)" alt="">
+      </div>
+      <div class="proj-info"><div class="badges"><span class="badge b-pro">Professional</span><span class="badge b-award">Hotel & Spa</span></div><div class="proj-title">Park Hyatt Spa</div><div class="proj-client">Hanoi Hyatt Hotels & Resorts · Hanoi, Vietnam</div><div class="proj-desc">Led a multidisciplinary team of architects, material designers, furniture designers, and wood and stone craftspeople to deliver a luxury resort spa in Hanoi's historic center.</div><div class="tools"><span class="tool">Revit</span><span class="tool">AutoCAD</span><span class="tool">SketchUp</span><span class="tool">Enscape</span></div></div>
+    </div>
+
+    <!-- SURFING LIZARD -->
+    <div class="proj-card" data-tags="professional hotel">
+      <div class="gallery"><img class="main-img" id="m-surf" src="https://hoangduyphongtran.github.io/images/surf-1.jpg" alt="Surfing Lizard"><div class="gallery-count">3 photos</div></div>
+      <div class="thumbs">
+        <img class="thumb on" src="https://hoangduyphongtran.github.io/images/surf-1.jpg" onclick="sw('m-surf',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/surf-2.jpg" onclick="sw('m-surf',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/surf-3.jpg" onclick="sw('m-surf',this)" alt="">
+      </div>
+      <div class="proj-info"><div class="badges"><span class="badge b-pro">Professional</span><span class="badge b-award">🏆 Best Design 2024</span></div><div class="proj-title">Surfing Lizard Restaurant</div><div class="proj-client">Secret Harbour, WA, Australia</div><div class="proj-desc">Beachside restaurant at a beautiful coastal location. Material selection, spatial concept, and full project execution with Australian investor team. Winner of Best Design Hospitality 2024.</div><div class="tools"><span class="tool">SketchUp</span><span class="tool">Enscape</span><span class="tool">D5 Render</span></div></div>
+    </div>
+
+    <!-- HYATT REGENCY WEST HANOI -->
+    <div class="proj-card" data-tags="professional hotel">
+      <div class="gallery"><img class="main-img" id="m-hreg" src="https://hoangduyphongtran.github.io/images/hreg-1.jpg" alt="Hyatt Regency"><div class="gallery-count">3 photos</div></div>
+      <div class="thumbs">
+        <img class="thumb on" src="https://hoangduyphongtran.github.io/images/hreg-1.jpg" onclick="sw('m-hreg',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/hreg-2.jpg" onclick="sw('m-hreg',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/hreg-3.jpg" onclick="sw('m-hreg',this)" alt="">
+      </div>
+      <div class="proj-info"><div class="badges"><span class="badge b-pro">Professional</span><span class="badge b-award">⭐ HOTLIST 2025</span></div><div class="proj-title">Hyatt Regency West Hanoi</div><div class="proj-client">36 Le Duc Tho Street, Hanoi · Travellive HOTLIST Editor's Pick 2025</div><div class="proj-desc">Participated from design through sample approval to construction on the Spa and Rooftop category. Flowing neutral palettes, curved walls, ambient lighting, and bespoke lanterns throughout.</div><div class="tools"><span class="tool">AutoCAD</span><span class="tool">Revit</span><span class="tool">Lumion</span></div></div>
+    </div>
+
+    <!-- PARITY FASHION -->
+    <div class="proj-card" data-tags="professional retail">
+      <div class="gallery"><img class="main-img" id="m-parity" src="https://hoangduyphongtran.github.io/images/parity-1.jpg" alt="Parity"><div class="gallery-count">2 photos</div></div>
+      <div class="thumbs">
+        <img class="thumb on" src="https://hoangduyphongtran.github.io/images/parity-1.jpg" onclick="sw('m-parity',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/parity-2.jpg" onclick="sw('m-parity',this)" alt="">
+      </div>
+      <div class="proj-info"><div class="badges"><span class="badge b-pro">Professional</span><span class="badge b-award">Retail</span></div><div class="proj-title">Parity Fashion Showroom</div><div class="proj-client">NAHY / AEON Japan Complex · Hai Phong, Vietnam</div><div class="proj-desc">Luxury retail showroom in an AEON Japan commercial complex. Distinctive yellow-toned visual identity that stands out among neighboring shops. Managed full design through build-out.</div><div class="tools"><span class="tool">Revit</span><span class="tool">D5 Render</span><span class="tool">CorelDraw</span></div></div>
+    </div>
+
+    <!-- GETFIT GYM -->
+    <div class="proj-card" data-tags="professional retail">
+      <div class="gallery"><img class="main-img" src="https://hoangduyphongtran.github.io/images/getfit-1.jpg" alt="GetFit"></div>
+      <div class="proj-info"><div class="badges"><span class="badge b-pro">Professional</span><span class="badge b-award">Commercial · Fitness</span></div><div class="proj-title">GetFit Gym & Yoga</div><div class="proj-client">GetFit Holdings · Ho Chi Minh City · 13,250 sq ft</div><div class="proj-desc">Managed a 13,250 sq ft fitness facility from auction through completion during COVID-19. Coordinated MEP contractors, sports equipment suppliers, and high-rise building management.</div><div class="tools"><span class="tool">AutoCAD</span><span class="tool">MS Project</span><span class="tool">SketchUp</span></div></div>
+    </div>
+
+    <!-- COLLEGE RESORT HOTEL -->
+    <div class="proj-card" data-tags="academic hotel">
+      <div class="gallery"><img class="main-img" id="m-hotel" src="https://hoangduyphongtran.github.io/images/hotel-1.jpg" alt="College Resort Hotel"><div class="gallery-count">4 photos</div></div>
+      <div class="thumbs">
+        <img class="thumb on" src="https://hoangduyphongtran.github.io/images/hotel-1.jpg" onclick="sw('m-hotel',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/hotel-2.jpg" onclick="sw('m-hotel',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/hotel-3.jpg" onclick="sw('m-hotel',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/hotel-4.jpg" onclick="sw('m-hotel',this)" alt="">
+      </div>
+      <div class="proj-info"><div class="badges"><span class="badge b-acad">Academic</span><span class="badge b-award">INT 223 · Hotel</span></div><div class="proj-title">College Resort Hotel</div><div class="proj-client">DMACC · Commercial II · Instructor Stephanie Nguyen · with Luis Rios</div><div class="proj-desc">High-rise hotel design in Revit with graphic design, calculations, and polished 3D rendering. A bold resort concept with real material specimens and photorealistic walkthroughs.</div><div class="tools"><span class="tool">Revit</span><span class="tool">Enscape</span><span class="tool">Canvas</span></div></div>
+    </div>
+
+    <!-- NAILEDIT SPA -->
+    <div class="proj-card" data-tags="academic retail">
+      <div class="gallery"><img class="main-img" id="m-nail" src="https://hoangduyphongtran.github.io/images/nail-1.jpg" alt="NailedIt"><div class="gallery-count">4 photos</div></div>
+      <div class="thumbs">
+        <img class="thumb on" src="https://hoangduyphongtran.github.io/images/nail-1.jpg" onclick="sw('m-nail',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/nail-2.jpg" onclick="sw('m-nail',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/nail-3.jpg" onclick="sw('m-nail',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/nail-4.jpg" onclick="sw('m-nail',this)" alt="">
+      </div>
+      <div class="proj-info"><div class="badges"><span class="badge b-acad">Academic</span><span class="badge b-award">INT 213 · Spa & Salon</span></div><div class="proj-title">NailedIt Spa & Salon</div><div class="proj-client">DMACC · Commercial I · Team Project</div><div class="proj-desc">Collaborative spa and salon design in Revit and SketchUp. Original team brand logo. A hands-themed spatial narrative carries through every corner — functional and metaphorical.</div><div class="tools"><span class="tool">Revit</span><span class="tool">SketchUp</span></div></div>
+    </div>
+
+    <!-- BLOOMRIDGE -->
+    <div class="proj-card" data-tags="academic hotel retail">
+      <div class="gallery"><img class="main-img" id="m-bloom" src="https://hoangduyphongtran.github.io/images/bloom-1.jpg" alt="Bloomridge"><div class="gallery-count">3 photos</div></div>
+      <div class="thumbs">
+        <img class="thumb on" src="https://hoangduyphongtran.github.io/images/bloom-1.jpg" onclick="sw('m-bloom',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/bloom-2.jpg" onclick="sw('m-bloom',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/bloom-3.jpg" onclick="sw('m-bloom',this)" alt="">
+      </div>
+      <div class="proj-info"><div class="badges"><span class="badge b-acad">Academic</span><span class="badge b-award">INT 213 · Senior Living</span></div><div class="proj-title">Bloomridge Senior Living</div><div class="proj-client">DMACC · Commercial I · Instructor Stephanie Nguyen</div><div class="proj-desc">Responsible for infrastructure and landscape connections across the campus — calculating area densities, connection points, and landscaping for interior and exterior views.</div><div class="tools"><span class="tool">Revit</span><span class="tool">Microsoft</span></div></div>
+    </div>
+
+    <!-- RESIDENTIAL II -->
+    <div class="proj-card" data-tags="academic residential">
+      <div class="gallery"><img class="main-img" id="m-res2" src="https://hoangduyphongtran.github.io/images/res2-1.jpg" alt="Residential II"><div class="gallery-count">4 photos</div></div>
+      <div class="thumbs">
+        <img class="thumb on" src="https://hoangduyphongtran.github.io/images/res2-1.jpg" onclick="sw('m-res2',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/res2-2.jpg" onclick="sw('m-res2',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/res2-3.jpg" onclick="sw('m-res2',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/res2-4.jpg" onclick="sw('m-res2',this)" alt="">
+      </div>
+      <div class="proj-info"><div class="badges"><span class="badge b-acad">Academic</span><span class="badge b-award">INT 222 · Residential II</span></div><div class="proj-title">Client Residential Design</div><div class="proj-client">DMACC · Residential II · Client-Facing Project</div><div class="proj-desc">Led real client interviews and translated personal preferences into designed residential spaces. Practiced client-facing confidence and applied interpersonal skills to real-world challenges.</div><div class="tools"><span class="tool">Revit</span><span class="tool">SketchUp</span><span class="tool">Enscape</span></div></div>
+    </div>
+
+    <!-- RESIDENTIAL I BOHEMIAN -->
+    <div class="proj-card" data-tags="academic residential">
+      <div class="gallery"><img class="main-img" id="m-res1" src="https://hoangduyphongtran.github.io/images/res1-1.jpg" alt="Residential I"><div class="gallery-count">3 photos</div></div>
+      <div class="thumbs">
+        <img class="thumb on" src="https://hoangduyphongtran.github.io/images/res1-1.jpg" onclick="sw('m-res1',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/res1-2.jpg" onclick="sw('m-res1',this)" alt="">
+        <img class="thumb" src="https://hoangduyphongtran.github.io/images/res1-3.jpg" onclick="sw('m-res1',this)" alt="">
+      </div>
+      <div class="proj-info"><div class="badges"><span class="badge b-acad">Academic</span><span class="badge b-award">INT 212 · Residential I</span></div><div class="proj-title">Bohemian Storage Redesign</div><div class="proj-client">DMACC · Residential I · Individual Project</div><div class="proj-desc">Transformed an outdoor storage room into a Bohemian-style decorative living space using rustic SketchUp rendering and careful interior arrangement.</div><div class="tools"><span class="tool">SketchUp</span><span class="tool">Adobe Suite</span></div></div>
+    </div>
+
+  </div>
+  <footer><div class="f-name">Hoang Duy Phong Tran</div><div class="f-contact">tduyphong@gmail.com · (515) 864-9653</div><div class="f-year">Portfolio 2026</div></footer>
+</div>
+
+<script>
+  function go(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  function filter(tag, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.proj-card').forEach(c => {
+      c.style.display = (tag === 'all' || c.dataset.tags.includes(tag)) ? '' : 'none';
+    });
+  }
+  function sw(mainId, thumb) {
+    document.getElementById(mainId).src = thumb.src;
+    thumb.parentElement.querySelectorAll('.thumb').forEach(t => t.classList.remove('on'));
+    thumb.classList.add('on');
+  }
+</script>
+</body>
+</html>
